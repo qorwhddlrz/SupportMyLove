@@ -1,4 +1,5 @@
-/// @description Insert description here
-// You can write your code in this editor
-hspeed=-4;
+/// @description description
+// vnycall74@naver.com - http://holykisa.tistory.com
+
+hspeed=-3;
 gravity=1;

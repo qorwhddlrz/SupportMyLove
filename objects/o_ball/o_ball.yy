@@ -1,28 +1,28 @@
 {
-    "id": "f84398be-ff72-4a42-aa3f-a45439c14185",
+    "id": "073ac558-4292-4fe8-b482-5a9bea6d3d43",
     "modelName": "GMObject",
     "mvc": "1.0",
     "name": "o_ball",
     "eventList": [
         {
-            "id": "d0768559-27ec-48b8-85e4-e144749d10e7",
-            "modelName": "GMEvent",
-            "mvc": "1.0",
-            "IsDnD": false,
-            "collisionObjectId": "748c30fc-1bd3-4ec4-bad3-f19fa840deaa",
-            "enumb": 0,
-            "eventtype": 4,
-            "m_owner": "f84398be-ff72-4a42-aa3f-a45439c14185"
-        },
-        {
-            "id": "a488dbf9-f952-4a98-b391-aa5d914aa67a",
+            "id": "6dbcccf4-a408-4ca2-9051-4157b84391ea",
             "modelName": "GMEvent",
             "mvc": "1.0",
             "IsDnD": false,
             "collisionObjectId": "00000000-0000-0000-0000-000000000000",
             "enumb": 0,
             "eventtype": 0,
-            "m_owner": "f84398be-ff72-4a42-aa3f-a45439c14185"
+            "m_owner": "073ac558-4292-4fe8-b482-5a9bea6d3d43"
+        },
+        {
+            "id": "f6dab865-5187-420e-b78c-55411a219424",
+            "modelName": "GMEvent",
+            "mvc": "1.0",
+            "IsDnD": false,
+            "collisionObjectId": "748c30fc-1bd3-4ec4-bad3-f19fa840deaa",
+            "enumb": 0,
+            "eventtype": 4,
+            "m_owner": "073ac558-4292-4fe8-b482-5a9bea6d3d43"
         }
     ],
     "maskSpriteId": "00000000-0000-0000-0000-000000000000",
@@ -41,6 +41,6 @@
     "physicsShapePoints": null,
     "physicsStartAwake": true,
     "solid": false,
-    "spriteId": "a93b6769-cb72-4153-a8d3-01463c132790",
+    "spriteId": "755501c5-4a3c-43ff-9b12-440ea64d37f4",
     "visible": true
 }

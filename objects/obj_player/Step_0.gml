@@ -17,7 +17,7 @@ else
 
 if(keyboard_check(vk_right))
 {
-	if(!place_meeting(x, y - (sprite_height / 2) - 1, obj_ground) && !place_meeting(x, y - (sprite_height / 2) - 1, obj_move_block))
+	if(!place_meeting(x + moveSpeed, y + sprite_height / 2 - 20, obj_ground) && !place_meeting(x, y - (sprite_height / 2) - 1, obj_move_block))
 		x += moveSpeed;
 		
 	image_speed = 1;
@@ -76,7 +76,7 @@ if(vspeed < jumpMax)
 	vspeed = jumpMax;
 }
 
-if(place_meeting(x, y + vspeed, obj_ground)) || place_meeting(x, y + vspeed, obj_move_block))
+if(place_meeting(x, y + vspeed, obj_ground))
 {
 	gravity = 0;
 	vspeed = 0;
@@ -86,18 +86,30 @@ if(place_meeting(x, y + vspeed, obj_ground)) || place_meeting(x, y + vspeed, obj
 	move_contact_solid(270, -1);
 }
 
-if(!place_meeting(x, y, obj_ground)) && !place_meeting(x, y, obj_move_block))
+if(place_meeting(x, y + vspeed, obj_move_block))
+{
+	gravity = 0;
+	vspeed = 0;
+	
+	isJump = false;
+}
+
+if(!place_meeting(x, y, obj_ground)) && !place_meeting(x, y, obj_move_block)
 	gravity = 1;
 
-if(place_meeting(x, y - vspeed, obj_block1) || place_meeting(x, y - vspeed, obj_block2) || place_meeting(x, y - vspeed, obj_block3))
+if(place_meeting(x, y - vspeed, obj_block1) || place_meeting(x, y - vspeed, obj_block2) || place_meeting(x, y - vspeed, obj_block3) || place_meeting(x, y - vspeed, obj_block4))
 {
 	if(instance_exists(obj_block1))
 		block = instance_place(x, y - vspeed, obj_block1);
 	else if(instance_exists(obj_block2))
 		block = instance_place(x, y - vspeed, obj_block2);
-	else
+	else if(instance_exists(obj_block3))
 	{
 		block = instance_place(x, y - vspeed, obj_block3);
+		block.hit = true;
+	}
+	else{
+		block = instance_place(x, y - vspeed, obj_block4);
 		block.hit = true;
 	}
 		
