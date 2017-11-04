@@ -3,6 +3,6 @@
 
 isUse = false;
 
-moveSpeed = 3;
+moveSpeed = 7;
 
 prevY = y;

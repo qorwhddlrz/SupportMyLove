@@ -2,60 +2,92 @@
 // vnycall74@naver.com - http://holykisa.tistory.com
 
 if(keyboard_check(vk_left))
-	x -= moveSpeed;
-else if(keyboard_check(vk_right))
-	x += moveSpeed;
+{
+	if(!place_meeting(x - moveSpeed, y + sprite_height / 2 - 20, obj_ground))
+	{
+		x -= moveSpeed;
+	}
+	
+	image_speed = 1;
+	
+	image_xscale = 1;
+}
+else
+	image_speed = 0;
 
+if(keyboard_check(vk_right))
+{
+	if(!place_meeting(x, y - (sprite_height / 2) - 1, obj_ground) && !place_meeting(x, y - (sprite_height / 2) - 1, obj_move_block))
+		x += moveSpeed;
+		
+	image_speed = 1;
+	
+	image_xscale = 1;
+}
+else
+	image_speed = 0;
+		
 if(keyboard_check(vk_up))
-	if(!isJump || doubleJump)
+{
+	if(!place_meeting(x, y - (sprite_height / 2) - 1, obj_ground))
 	{
-		if(doubleJump)
+		if(!isJump || doubleJump)
 		{
-			vspeed = -7;
-			doubleJump = false;
+			if(doubleJump)
+			{
+				vspeed = jumpMax;
+				doubleJump = false;
+			}
+			if(vspeed==0)
+				vspeed=-4;
+			vspeed -= jumpSpeed;		
+			gravity = 1;
 		}
-		
-		vspeed -= jumpSpeed;		
-		gravity = 0.5;
 	}
-else if(keyboard_key_release(vk_up))
-	if(vspeed != 0)
+	else
 	{
-		isJump = true;
+		isJump = true;		
 		
-		if(doubleJump)
-			doubleJump = false;
+		vspeed = 0;
+		gravity = 1;
 	}
+}
 
-if(vspeed < -7)
+if(keyboard_check_released(vk_up))
+{
+	if(!isJump)
+		if(vspeed < 0)
+		{
+			isJump = true;
+		
+			if(doubleJump)
+				doubleJump = false;
+		}
+}
+
+//show_debug_message(doubleJump);
+
+if(vspeed < jumpMax)
 {
 	if(isJump && doubleJump)
 		doubleJump = false;
 		
 	isJump = true;	
-	vspeed = -7;
+	vspeed = jumpMax;
 }
 
-if(place_meeting(x, y - vspeed - 2, obj_ground))
+if(place_meeting(x, y + vspeed, obj_ground)) || place_meeting(x, y + vspeed, obj_move_block))
 {
-	isJump = false;
-	
-	vspeed = 0;	
-	gravity = 0.5;
-}
-
-if(place_meeting(x, y + vspeed, obj_ground))
-{
-	isJump = false;
-
-	vspeed = 0;	
 	gravity = 0;
+	vspeed = 0;
+	
+	isJump = false;
 	
 	move_contact_solid(270, -1);
 }
 
-if(! place_meeting(x, y, obj_ground))
-	gravity = 0.5;
+if(!place_meeting(x, y, obj_ground)) && !place_meeting(x, y, obj_move_block))
+	gravity = 1;
 
 if(place_meeting(x, y - vspeed, obj_block1) || place_meeting(x, y - vspeed, obj_block2) || place_meeting(x, y - vspeed, obj_block3))
 {
@@ -73,7 +105,7 @@ if(place_meeting(x, y - vspeed, obj_block1) || place_meeting(x, y - vspeed, obj_
 		block.isMove = true;
 }
 
-if(place_meeting(x, y, obj_lever1) || place_meeting(x, y, obj_lever2) || place_meeting(x, y, obj_lever3))
+if(place_meeting(x, y, obj_lever1) || place_meeting(x, y, obj_lever2) || place_meeting(x, y, obj_lever3) || place_meeting(x, y, obj_lever4))
 {
 	if(keyboard_check(vk_down))
 		if(!lever_checked)
@@ -83,23 +115,22 @@ if(place_meeting(x, y, obj_lever1) || place_meeting(x, y, obj_lever2) || place_m
 			if(instance_exists(obj_lever1))
 			{
 				lever = instance_place(x, y, obj_lever1);
-				
-				lever.image_xscale = -1;
+			}
+			else if(instance_exists(obj_lever4))
+			{
+				lever = instance_place(x, y, obj_lever4);
 			}
 			else if(instance_exists(obj_lever3))
 			{
 				lever = instance_place(x, y, obj_lever3);
-				
-				lever.image_xscale = -1;
 			}
 			else
 			{
 				lever = instance_place(x, y, obj_lever2);
-				
-				lever.image_xscale = lever.image_xscale * -1;
+				lever.isAni = true;
 			}
 	
-			if(instance_exists(obj_lever1) || instance_exists(obj_lever3))
+			if(instance_exists(obj_lever1) || instance_exists(obj_lever3) || instance_exists(obj_lever4))
 				lever.isUse = true;
 			else
 				lever.isUse = !lever.isUse;
@@ -115,7 +146,7 @@ if(place_meeting(x, y, obj_scaffolding))
 	scaffolding.isUse = true;
 }
 
-if(place_meeting(x, y, obj_trap2))
+if(place_meeting(x, y, obj_trap2))||place_meeting(x,y,obj_trap4)||place_meeting(x,y,o_ball)
 	instance_destroy();
 	
 if(place_meeting(x, y, obj_double))
@@ -128,4 +159,15 @@ if(place_meeting(x, y, obj_double))
 	doubleJump = true;
 }
 
-show_debug_message(doubleJump);
+if(place_meeting(x, y, obj_trap))
+	instance_destroy();
+
+if(x > (room_width + sprite_width / 2))
+{
+	system.clear1 = true;
+	
+	instance_destroy();
+}
+
+if(place_meeting(x, y, obj_jumping))
+	vspeed = -22;

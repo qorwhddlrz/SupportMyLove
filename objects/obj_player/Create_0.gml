@@ -2,13 +2,17 @@
 // vnycall74@naver.com - http://holykisa.tistory.com
 
 moveSpeed = 4;
-jumpSpeed = 1.5;
+jumpSpeed = 2;
+jumpMax = -11 ;
+
 //jumpSpeed = 7;
 
-gravity = 0.5;
+gravity = 1;
 
 isJump = false;
 
 lever_checekd = false;
 
 doubleJump = false;
+
+image_speed = 0;

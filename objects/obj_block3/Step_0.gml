@@ -10,6 +10,8 @@ if(isMove)
 			else
 			{
 				hit = false;
+				
+				count ++;
 			}
 		else
 			if((prevY + (sprite_height / 3) > y))
@@ -18,8 +20,6 @@ if(isMove)
 			{
 				isMove = false;
 				hit = false;
-				
-				count ++;
 			}
 	else
 		instance_destroy();
